@@ -50,12 +50,3 @@ new_data = pd.DataFrame({
 if st.button('Buy Box Fiyat Tahmini Yap'):
         predictions = loaded_model.predict(new_data)
         st.write('Buy Box Fiyat Tahmini:', predictions[0])
-
-st.write("File uploaded successfully")
-try:
-    # Prediction code
-    st.write("Starting prediction")
-    predictions = model.predict(data)
-    st.write(predictions)
-except Exception as e:
-    st.write(f"An error occurred: {e}")
