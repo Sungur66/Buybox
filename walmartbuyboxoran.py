@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 
 # Model ve encoder yükleme
-loaded_model = joblib.load('AmazonBuyBox_model.pkl')
+loaded_model = joblib.load('BuyBoxOran_model.pkl')
 
 # CSS ekleme
 st.markdown(
@@ -25,16 +25,16 @@ st.markdown(
 )
 
 # Başlık
-st.markdown('<h1 class="title">Amazon buybox Tahmini yapmak</h1>', unsafe_allow_html=True)
+st.markdown('<h1 class="title">Walmart Buy Box Alma Tahmini yapmak</h1>', unsafe_allow_html=True)
 
 # Kullanıcıdan veri alma
 st.markdown('<h2 class="header">Yeni Veri Girişi yapiniz</h2>', unsafe_allow_html=True)
 price = st.number_input('1- Price', value=0.0)
-comparison_price_type = st.selectbox('2- Comparison Price Type', ["Was Price", "Other"])
+comparison_price_type = st.selectbox('2- Comparison Price Type', ["List Price", "Was Price"])
 buy_box_item_price = st.number_input('3- Buy Box Item Price', value=0.0)
-ship_methods = st.selectbox('4- Ship Methods', ["ALWAYS_TWO_DAYS", "NETWORK_GEO", "OTHER"])
+ship_methods = st.selectbox('4- Ship Methods', ["ALWAYS_TWO_DAYS", "NETWORK_GEO"])
 shipping_weight = st.number_input('5- Shipping Weight', value=0.0)
-fulfillment_type = st.selectbox('6- Fulfillment Type', ["WFS Eligible", "Walmart Fulfilled", "Seller Fulfilled", "Other"])
+fulfillment_type = st.selectbox('6- Fulfillment Type', ["Seller Fulfilled", "WFS Eligible", "Walmart Fulfilled"])
 average_rating = st.number_input('7- Average Rating', value=0.0)
 cost = st.number_input('8- Cost', value=0.0)
 
@@ -51,8 +51,8 @@ new_data = pd.DataFrame({
 })
 
 # Tahmin yapma
-if st.button('Buy Box icin Fiyat uygunlugu Tahmini Yap'):
+if st.button('Walmart Buy Box icin Fiyat uygunlugu Tahmini Yap'):
     predictions = loaded_model.predict(new_data)
     predictions_proba = loaded_model.predict_proba(new_data)
-    st.write('Buy Box Tahmini:', predictions[0])
+    st.write('Walmart Buy Box i alma Tahmini:', predictions[0])
     st.write('Tahminin Olasılıkları:', predictions_proba)
